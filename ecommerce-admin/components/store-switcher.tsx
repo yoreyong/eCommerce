@@ -1,8 +1,8 @@
 "use client";
 
+import { Check, ChevronsUpDown, PlusCircle, Store } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Check, ChevronsUpDown, PlusCircle, Store } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from '@/components/ui/button';
@@ -15,9 +15,13 @@ import {
   CommandList, 
   CommandSeparator
 } from '@/components/ui/command';
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { 
+  Popover, 
+  PopoverTrigger, 
+  PopoverContent 
+} from "@/components/ui/popover";
 import { useStoreModal } from "@/hooks/use-store-modal";
-import { PopoverContent } from "@radix-ui/react-popover";
+
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
