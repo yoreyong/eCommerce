@@ -19,7 +19,9 @@ export const AlertModal: React.FC<AlertModalProps> = ({
   loading
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-
+  // 目的是为了在组件渲染完成之前, 不展示任何页面
+  // useEffect是在组件渲染完成之后调用的, 在本案例中, 先返回null, 等组件渲染完成之后,
+  // 使用useEffect将 isMounted 设置为true, 然后展示组件
   useEffect(() => {
     setIsMounted(true);
   }, []);
