@@ -60,13 +60,19 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
     }
   });
 
+  // 新建 Billboard
   const onSubmit = async (data: BillboardFormValues) => {
     // console.log(data);
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      if(initialData) { // 如果有默认数据, 那么就 Edit 该BillBoard
+        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+      } else {  // 没有默认数据, 新建 BillBoard
+        await axios.post(`/api/${params.storeId}/billboards`, data);
+      }
       router.refresh();
-      toast.success('Store updated.');
+      router.push(`/${params.storeId}/billboards`);
+      toast.success(toastMessage);
     } catch (error: any) {
       toast.error('Something went wrong.');
     } finally {
@@ -74,15 +80,16 @@ const BillboardForm: React.FC<BillboardFormProps> = ({
     }
   };
 
+  // 删除 Billboard
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
-      router.push('/');
-      toast.success('Store deleted.');
+      router.push(`/${params.storeId}/billboards`);
+      toast.success('Billboard deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all products and categories first.');
+      toast.error('Make sure you removed all categories using this billboard first.');
     } finally {
       setLoading(false);
       setOpen(false);
